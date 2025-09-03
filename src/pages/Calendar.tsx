@@ -15,10 +15,10 @@ import {
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedSite, setSelectedSite] = useState("sede1");
+  const [selectedSite, setSelectedSite] = useState("centro");
 
   const events = {
-    sede1: [
+    centro: [
       {
         id: 1,
         title: "Torneo Ping Pong",
@@ -53,7 +53,7 @@ const Calendar = () => {
         points: 75
       }
     ],
-    sede2: [
+    palestra: [
       {
         id: 4,
         title: "Torneo Calcetto",
@@ -110,116 +110,137 @@ const Calendar = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Calendario Eventi</h1>
-          <p className="text-muted-foreground">Scopri tutte le attività del centro giovani</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon">
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <span className="font-medium min-w-[120px] text-center">
-            {currentDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' })}
-          </span>
-          <Button variant="outline" size="icon">
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <CalendarIcon className="h-5 w-5 text-primary" />
+            Eventi in Programma
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
 
       <Tabs value={selectedSite} onValueChange={setSelectedSite} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="sede1" className="flex items-center gap-2">
+          <TabsTrigger value="centro" className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Sede Centro
           </TabsTrigger>
-          <TabsTrigger value="sede2" className="flex items-center gap-2">
+          <TabsTrigger value="palestra" className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Sede Palestra
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value={selectedSite} className="space-y-4 mt-6">
-          <div className="grid gap-4">
-            {currentSiteEvents.map((event) => (
-              <Card key={event.id} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-2xl">{getEventTypeIcon(event.type)}</span>
-                        <div>
-                          <h3 className="text-xl font-semibold">{event.title}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            {formatDate(event.date)}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1">
-                          <Clock className="h-4 w-4" />
-                          {event.time} • {event.duration}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Users className="h-4 w-4" />
-                          {event.participants}/{event.maxParticipants} partecipanti
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Star className="h-4 w-4 text-warning" />
-                          +{event.points} punti
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <Badge 
-                          className={`${getEventTypeColor(event.type)} text-white`}
-                        >
-                          {event.type === "tournament" ? "Torneo" : 
-                           event.type === "workshop" ? "Workshop" : "Evento"}
-                        </Badge>
-                        
-                        <div className="flex-1">
-                          <div className="w-full bg-muted rounded-full h-2">
-                            <div 
-                              className="bg-primary h-2 rounded-full transition-all duration-300"
-                              style={{ 
-                                width: `${(event.participants / event.maxParticipants) * 100}%` 
-                              }}
-                            ></div>
+            <TabsContent value="centro" className="mt-6">
+              {events.centro.length > 0 ? (
+                <div className="space-y-4">
+                  {events.centro
+                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                    .map((event) => (
+                    <Card key={event.id} className="border-l-4 border-l-blue-500 hover:shadow-md transition-shadow">
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-2xl">{getEventTypeIcon(event.type)}</span>
+                              <h3 className="font-semibold text-lg">{event.title}</h3>
+                              <Badge className={getEventTypeColor(event.type)}>
+                                {event.type === "tournament" ? "Torneo" : 
+                                 event.type === "workshop" ? "Workshop" : "Evento"}
+                              </Badge>
+                            </div>
+                            <p className="text-muted-foreground mb-3">{formatDate(event.date)}</p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Clock className="h-4 w-4 text-primary" />
+                                <span className="font-medium">{event.time}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Users className="h-4 w-4 text-primary" />
+                                <span className="font-medium">{event.participants}/{event.maxParticipants}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Star className="h-4 w-4 text-primary" />
+                                <span className="font-medium">+{event.points} punti</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="ml-4">
+                            {event.participants < event.maxParticipants ? (
+                              <Button size="sm" className="animate-pulse">Partecipa</Button>
+                            ) : (
+                              <Badge variant="outline">Completo</Badge>
+                            )}
                           </div>
                         </div>
-                      </div>
-                    </div>
-
-                    <div className="ml-4">
-                      <Button 
-                        className="w-full"
-                        disabled={event.participants >= event.maxParticipants}
-                      >
-                        {event.participants >= event.maxParticipants ? "Completo" : "Partecipa"}
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {currentSiteEvents.length === 0 && (
-            <Card>
-              <CardContent className="p-12 text-center">
-                <CalendarIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Nessun evento programmato</h3>
-                <p className="text-muted-foreground">
-                  Al momento non ci sono eventi in programma per questa sede.
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </TabsContent>
-      </Tabs>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <CalendarIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <p className="text-muted-foreground">Nessun evento programmato per questo periodo.</p>
+                </div>
+              )}
+            </TabsContent>
+            
+            <TabsContent value="palestra" className="mt-6">
+              {events.palestra.length > 0 ? (
+                <div className="space-y-4">
+                  {events.palestra
+                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                    .map((event) => (
+                    <Card key={event.id} className="border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-start">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-2xl">{getEventTypeIcon(event.type)}</span>
+                              <h3 className="font-semibold text-lg">{event.title}</h3>
+                              <Badge className={getEventTypeColor(event.type)}>
+                                {event.type === "tournament" ? "Torneo" : 
+                                 event.type === "workshop" ? "Workshop" : "Evento"}
+                              </Badge>
+                            </div>
+                            <p className="text-muted-foreground mb-3">{formatDate(event.date)}</p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Clock className="h-4 w-4 text-primary" />
+                                <span className="font-medium">{event.time}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Users className="h-4 w-4 text-primary" />
+                                <span className="font-medium">{event.participants}/{event.maxParticipants}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Star className="h-4 w-4 text-primary" />
+                                <span className="font-medium">+{event.points} punti</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="ml-4">
+                            {event.participants < event.maxParticipants ? (
+                              <Button size="sm" className="animate-pulse">Partecipa</Button>
+                            ) : (
+                              <Badge variant="outline">Completo</Badge>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <CalendarIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <p className="text-muted-foreground">Nessun evento programmato per questo periodo.</p>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
 
       {/* Quick Stats */}
       <div className="grid md:grid-cols-3 gap-4">

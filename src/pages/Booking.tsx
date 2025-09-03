@@ -12,14 +12,17 @@ import {
   Users,
   CheckCircle,
   AlertCircle,
-  Filter
+  Filter,
+  Monitor
 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 
 const Booking = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
+  const [needsComputer, setNeedsComputer] = useState("no");
   const { toast } = useToast();
 
   const subjects = [
@@ -130,19 +133,31 @@ const Booking = () => {
 
                   <div>
                     <Label htmlFor="subject">Materia</Label>
-                    <select
-                      id="subject"
-                      className="w-full p-2 border border-input rounded-md bg-background"
-                      value={selectedSubject}
-                      onChange={(e) => setSelectedSubject(e.target.value)}
-                    >
-                      <option value="">Seleziona una materia</option>
-                      {subjects.map((subject) => (
-                        <option key={subject} value={subject}>
-                          {subject}
-                        </option>
-                      ))}
-                    </select>
+                    <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleziona una materia" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {subjects.map((subject) => (
+                          <SelectItem key={subject} value={subject}>
+                            {subject}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="computer">Computer necessario?</Label>
+                    <Select value={needsComputer} onValueChange={setNeedsComputer}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="no">No, non necessario</SelectItem>
+                        <SelectItem value="yes">Sì, ho bisogno del computer</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
@@ -184,6 +199,10 @@ const Booking = () => {
                   <div>📅 Data: {selectedDate || "Non selezionata"}</div>
                   <div>⏰ Orario: {selectedTime || "Non selezionato"}</div>
                   <div>📚 Materia: {selectedSubject || "Non selezionata"}</div>
+                  <div className="flex items-center gap-2">
+                    <Monitor className="h-4 w-4" />
+                    Computer: {needsComputer === "yes" ? "Richiesto" : "Non necessario"}
+                  </div>
                   <div className="text-success font-medium">⭐ Punti guadagnati: +50</div>
                 </div>
               </div>

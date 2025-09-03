@@ -11,6 +11,7 @@ import {
   TrendingUp,
   Users
 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 
 const Dashboard = () => {
@@ -89,8 +90,56 @@ const Dashboard = () => {
         })}
       </div>
 
-      {/* Stats Cards */}
+      {/* Prossimi Appuntamenti */}
       <div className="grid md:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-primary" />
+              Prossimi Appuntamenti
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                <div>
+                  <p className="font-medium">Studio con Marco</p>
+                  <p className="text-sm text-muted-foreground">Oggi, 15:00-17:00</p>
+                </div>
+                <Badge>Confermato</Badge>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-muted rounded-lg">
+                <div>
+                  <p className="font-medium">Torneo Ping Pong</p>
+                  <p className="text-sm text-muted-foreground">Domani, 16:00</p>
+                </div>
+                <Badge variant="outline">In attesa</Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Trophy className="h-5 w-5 text-primary" />
+              I tuoi punti
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-primary mb-2">{userStats.points}</div>
+              <p className="text-muted-foreground">Punti totali guadagnati</p>
+              <div className="mt-4">
+                <Progress value={progressPercentage} className="h-2" />
+                <p className="text-sm text-muted-foreground mt-2">
+                  {userStats.nextLevelPoints - userStats.points} punti al prossimo livello
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-lg flex items-center gap-2">
