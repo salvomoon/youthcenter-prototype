@@ -60,6 +60,9 @@ const translations = {
     settings: "Impostazioni",
     logout: "Disconnetti",
     language: "Lingua",
+    theme: "Tema",
+    darkTheme: "Tema scuro",
+    lightTheme: "Tema chiaro",
     
     // Common
     confirmed: "Confermato",
@@ -114,6 +117,9 @@ const translations = {
     settings: "Settings",
     logout: "Logout",
     language: "Language",
+    theme: "Theme",
+    darkTheme: "Dark theme",
+    lightTheme: "Light theme",
     
     // Common
     confirmed: "Confirmed",
@@ -168,6 +174,9 @@ const translations = {
     settings: "Configuración",
     logout: "Cerrar Sesión",
     language: "Idioma",
+    theme: "Tema",
+    darkTheme: "Tema oscuro",
+    lightTheme: "Tema claro",
     
     // Common
     confirmed: "Confirmado",
@@ -222,6 +231,9 @@ const translations = {
     settings: "الإعدادات",
     logout: "تسجيل الخروج",
     language: "اللغة",
+    theme: "المظهر",
+    darkTheme: "المظهر الداكن",
+    lightTheme: "المظهر الفاتح",
     
     // Common
     confirmed: "مؤكد",
@@ -276,6 +288,9 @@ const translations = {
     settings: "设置",
     logout: "登出",
     language: "语言",
+    theme: "主题",
+    darkTheme: "深色主题",
+    lightTheme: "浅色主题",
     
     // Common
     confirmed: "已确认",
