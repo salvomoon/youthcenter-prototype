@@ -143,7 +143,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card border-0">
+        <Card className="shadow-card border-0" data-tour="stats">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-3">
               <TrendingUp className="h-6 w-6 text-success" />
@@ -174,7 +174,7 @@ const Dashboard = () => {
       {/* Secondary Content Grid */}
       <div className="grid lg:grid-cols-3 gap-8">
 
-        <Card className="shadow-card border-0">
+        <Card className="shadow-card border-0" data-tour="activities">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-3">
               <Zap className="h-6 w-6 text-warning" />

@@ -1,174 +1,202 @@
 import React, { useState, useEffect } from 'react';
+import { TourProvider, useTour } from '@reactour/tour';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Card, CardContent } from '@/components/ui/card';
-import { X, ArrowRight, ArrowLeft, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 
 interface OnboardingTourProps {
   children: React.ReactNode;
 }
 
+const TourButton: React.FC = () => {
+  const { t } = useLanguage();
+  const { setIsOpen, setCurrentStep } = useTour();
+
+  const startTour = () => {
+    setCurrentStep(0);
+    setIsOpen(true);
+  };
+
+  return (
+    <Button
+      onClick={startTour}
+      className="fixed bottom-6 right-6 z-40 rounded-full shadow-elegant"
+      size="icon"
+      variant="secondary"
+      title={t('startTour')}
+    >
+      <Play className="h-4 w-4" />
+    </Button>
+  );
+};
+
 export const OnboardingTour: React.FC<OnboardingTourProps> = ({ children }) => {
   const { t } = useLanguage();
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
+
+  const steps = [
+    {
+      selector: '[data-tour="welcome"]',
+      content: (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2 text-foreground">
+            {t('welcomeTitle')}
+          </h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            {t('welcomeDesc')}
+          </p>
+        </div>
+      ),
+    },
+    {
+      selector: '[data-tour="navigation"]',
+      content: (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2 text-foreground">
+            Menu di Navigazione
+          </h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            {t('navigationStep')}
+          </p>
+        </div>
+      ),
+    },
+    {
+      selector: '[data-tour="quick-actions"]',
+      content: (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2 text-foreground">
+            Azioni Rapide
+          </h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            {t('bookingStep')}
+          </p>
+        </div>
+      ),
+    },
+    {
+      selector: '[data-tour="stats"]',
+      content: (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2 text-foreground">
+            Le Tue Statistiche
+          </h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            Qui puoi monitorare i tuoi progressi, punti guadagnati e attività completate.
+          </p>
+        </div>
+      ),
+    },
+    {
+      selector: '[data-tour="activities"]',
+      content: (
+        <div className="p-4">
+          <h3 className="text-lg font-semibold mb-2 text-foreground">
+            Attività Recenti
+          </h3>
+          <p className="text-muted-foreground text-sm leading-relaxed">
+            Visualizza le tue ultime attività e i punti guadagnati.
+          </p>
+        </div>
+      ),
+    },
+  ];
 
   useEffect(() => {
     const hasSeenTour = localStorage.getItem('hasSeenTour');
     if (!hasSeenTour) {
-      // Show tour after a short delay to let the app render
-      setTimeout(() => setIsOpen(true), 1500);
+      // Start tour after app renders
+      setTimeout(() => {
+        const { setIsOpen } = useTour();
+        setIsOpen(true);
+      }, 2000);
     }
   }, []);
 
-  const tourSteps = [
-    {
-      title: t('welcomeTitle'),
-      content: t('welcomeDesc'),
-      highlight: '[data-tour="welcome"]',
-    },
-    {
-      title: t('menu'),
-      content: t('navigationStep'),
-      highlight: '[data-tour="navigation"]',
-    },
-    {
-      title: 'Dashboard',
-      content: t('dashboardStep'),
-      highlight: '[data-tour="dashboard"]',
-    },
-    {
-      title: 'Quick Actions',
-      content: t('bookingStep'),
-      highlight: '[data-tour="quick-actions"]',
-    },
-  ];
-
-  const closeTour = () => {
-    setIsOpen(false);
-    localStorage.setItem('hasSeenTour', 'true');
-  };
-
-  const nextStep = () => {
-    if (currentStep < tourSteps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      closeTour();
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  if (!isOpen) {
-    return (
-      <div>
-        {children}
-        {/* Floating tour restart button */}
-        <Button
-          onClick={() => {
-            setCurrentStep(0);
-            setIsOpen(true);
-          }}
-          className="fixed bottom-4 right-4 z-50 rounded-full shadow-lg"
-          size="icon"
-          variant="secondary"
-          title={t('startTour')}
-        >
-          <Play className="h-4 w-4" />
-        </Button>
-      </div>
-    );
-  }
-
   return (
-    <div>
+    <TourProvider
+      steps={steps}
+      showBadge={false}
+      showNavigation={true}
+      showDots={true}
+      disableKeyboardNavigation={false}
+      className="tour-step"
+      styles={{
+        popover: (base) => ({
+          ...base,
+          '--reactour-accent': 'hsl(var(--primary))',
+          borderRadius: 12,
+          backgroundColor: 'hsl(var(--card))',
+          color: 'hsl(var(--card-foreground))',
+          border: '1px solid hsl(var(--border))',
+          boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+          maxWidth: 320,
+        }),
+        maskArea: (base) => ({
+          ...base,
+          rx: 12,
+        }),
+        badge: (base) => ({
+          ...base,
+          backgroundColor: 'hsl(var(--primary))',
+          color: 'hsl(var(--primary-foreground))',
+        }),
+        controls: (base) => ({
+          ...base,
+          marginTop: 16,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }),
+        navigation: (base) => ({
+          ...base,
+          display: 'flex',
+          gap: 8,
+        }),
+        button: (base) => ({
+          ...base,
+          backgroundColor: 'hsl(var(--primary))',
+          color: 'hsl(var(--primary-foreground))',
+          border: 'none',
+          borderRadius: 6,
+          padding: '8px 16px',
+          fontSize: 14,
+          fontWeight: 500,
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+        }),
+        close: (base) => ({
+          ...base,
+          position: 'absolute',
+          top: 8,
+          right: 8,
+          backgroundColor: 'transparent',
+          border: 'none',
+          color: 'hsl(var(--muted-foreground))',
+          cursor: 'pointer',
+          padding: 4,
+          borderRadius: 4,
+        }),
+      }}
+      prevButton={(props) => (
+        <button {...props} style={{ 
+          backgroundColor: 'hsl(var(--secondary))', 
+          color: 'hsl(var(--secondary-foreground))' 
+        }}>
+          {t('prev')}
+        </button>
+      )}
+      nextButton={(props) => (
+        <button {...props}>
+          {t('next')}
+        </button>
+      )}
+      onClickClose={() => {
+        localStorage.setItem('hasSeenTour', 'true');
+      }}
+    >
       {children}
-      
-      {/* Tour overlay */}
-      <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md animate-in fade-in-0 zoom-in-95 duration-300">
-          <CardContent className="p-0">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-primary">
-                  {t('startTour')}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  {currentStep + 1} / {tourSteps.length}
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={closeTour}
-                className="h-8 w-8"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-            
-            {/* Content */}
-            <div className="p-6">
-              <h3 className="text-lg font-semibold text-foreground mb-3">
-                {tourSteps[currentStep]?.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {tourSteps[currentStep]?.content}
-              </p>
-            </div>
-            
-            {/* Progress bar */}
-            <div className="px-6 pb-4">
-              <div className="w-full bg-muted rounded-full h-2">
-                <div 
-                  className="bg-primary h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${((currentStep + 1) / tourSteps.length) * 100}%` }}
-                />
-              </div>
-            </div>
-            
-            {/* Footer */}
-            <div className="flex items-center justify-between p-4 border-t bg-muted/30">
-              <Button
-                variant="outline"
-                onClick={closeTour}
-                className="text-sm"
-              >
-                {t('skipTour')}
-              </Button>
-              
-              <div className="flex gap-2">
-                {currentStep > 0 && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={prevStep}
-                  >
-                    <ArrowLeft className="h-4 w-4 mr-1" />
-                    {t('prev')}
-                  </Button>
-                )}
-                
-                <Button
-                  onClick={nextStep}
-                  size="sm"
-                >
-                  {currentStep < tourSteps.length - 1 ? t('next') : t('finish')}
-                  {currentStep < tourSteps.length - 1 && (
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  )}
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+      <TourButton />
+    </TourProvider>
   );
 };
 
