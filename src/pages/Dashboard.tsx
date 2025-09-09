@@ -45,9 +45,9 @@ const Dashboard = () => {
   const progressPercentage = ((userStats.points - (userStats.nextLevelPoints - 350)) / 350) * 100;
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-8 max-w-7xl mx-auto" data-tour="dashboard">
       {/* Welcome Section - Enhanced following Refactoring UI principles */}
-      <div className="bg-gradient-primary rounded-xl p-8 text-white shadow-elegant">
+      <div className="bg-gradient-primary rounded-xl p-8 text-white shadow-elegant" data-tour="welcome">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-3">{t("welcome")} {userStats.name}! 👋</h1>
@@ -75,7 +75,7 @@ const Dashboard = () => {
       </div>
 
       {/* Quick Actions - Enhanced with better spacing and visual hierarchy */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6" data-tour="quick-actions">
         {quickActions.map((action, index) => {
           const Icon = action.icon;
           return (

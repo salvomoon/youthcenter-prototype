@@ -51,7 +51,7 @@ const Navigation = () => {
   return (
     <>
       {/* Desktop Navigation */}
-      <div className="hidden md:flex w-64 min-h-screen bg-card border-r border-border shadow-card transition-colors duration-300">
+      <div className="hidden md:flex w-64 min-h-screen bg-card border-r border-border shadow-card transition-colors duration-300" data-tour="navigation">
         <div className="w-full p-6 flex flex-col">
           <div className="mb-8">
             <h1 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">

@@ -64,6 +64,22 @@ const translations = {
     darkTheme: "Tema scuro",
     lightTheme: "Tema chiaro",
     
+    // Tour
+    startTour: "Inizia Tour",
+    skipTour: "Salta Tour",
+    next: "Avanti",
+    prev: "Indietro",
+    finish: "Finisci",
+    welcomeTitle: "Benvenuto nel Centro Giovani!",
+    welcomeDesc: "Ti mostreremo come utilizzare questa applicazione in pochi semplici passaggi.",
+    dashboardStep: "Questa è la dashboard principale dove puoi vedere i tuoi appuntamenti, punti e accedere rapidamente alle funzioni.",
+    calendarStep: "Nel calendario puoi visualizzare tutti gli eventi e attività del centro in forma cronologica.",
+    bookingStep: "Qui puoi prenotare sale, computer e partecipare ad attività del centro.",
+    leaderboardStep: "La classifica mostra i punti di tutti i partecipanti. Partecipa alle attività per guadagnare punti!",
+    qrStep: "Usa lo scanner QR per check-in rapido agli eventi e guadagnare punti automaticamente.",
+    profileStep: "Nel tuo profilo puoi vedere le tue informazioni, progress e achievements.",
+    navigationStep: "Usa questo menu per navigare tra le diverse sezioni dell'app.",
+    
     // Common
     confirmed: "Confermato",
     pending: "In attesa",
@@ -120,6 +136,22 @@ const translations = {
     theme: "Theme",
     darkTheme: "Dark theme",
     lightTheme: "Light theme",
+    
+    // Tour
+    startTour: "Start Tour",
+    skipTour: "Skip Tour",
+    next: "Next",
+    prev: "Previous",
+    finish: "Finish",
+    welcomeTitle: "Welcome to Youth Center!",
+    welcomeDesc: "We'll show you how to use this application in a few simple steps.",
+    dashboardStep: "This is the main dashboard where you can see your appointments, points and quickly access functions.",
+    calendarStep: "In the calendar you can view all center events and activities in chronological form.",
+    bookingStep: "Here you can book rooms, computers and participate in center activities.",
+    leaderboardStep: "The leaderboard shows points of all participants. Join activities to earn points!",
+    qrStep: "Use the QR scanner for quick check-in to events and automatically earn points.",
+    profileStep: "In your profile you can see your information, progress and achievements.",
+    navigationStep: "Use this menu to navigate between different sections of the app.",
     
     // Common
     confirmed: "Confirmed",
@@ -178,6 +210,22 @@ const translations = {
     darkTheme: "Tema oscuro",
     lightTheme: "Tema claro",
     
+    // Tour
+    startTour: "Iniciar Tour",
+    skipTour: "Saltar Tour",
+    next: "Siguiente",
+    prev: "Anterior",
+    finish: "Finalizar",
+    welcomeTitle: "¡Bienvenido al Centro Juvenil!",
+    welcomeDesc: "Te mostraremos cómo usar esta aplicación en unos simples pasos.",
+    dashboardStep: "Este es el panel principal donde puedes ver tus citas, puntos y acceder rápidamente a las funciones.",
+    calendarStep: "En el calendario puedes ver todos los eventos y actividades del centro en forma cronológica.",
+    bookingStep: "Aquí puedes reservar salas, computadoras y participar en actividades del centro.",
+    leaderboardStep: "La tabla de clasificación muestra los puntos de todos los participantes. ¡Únete a actividades para ganar puntos!",
+    qrStep: "Usa el escáner QR para check-in rápido a eventos y ganar puntos automáticamente.",
+    profileStep: "En tu perfil puedes ver tu información, progreso y logros.",
+    navigationStep: "Usa este menú para navegar entre las diferentes secciones de la app.",
+    
     // Common
     confirmed: "Confirmado",
     pending: "Pendiente",
@@ -235,6 +283,22 @@ const translations = {
     darkTheme: "المظهر الداكن",
     lightTheme: "المظهر الفاتح",
     
+    // Tour
+    startTour: "بدء الجولة",
+    skipTour: "تخطي الجولة",
+    next: "التالي",
+    prev: "السابق",
+    finish: "إنهاء",
+    welcomeTitle: "مرحباً بك في مركز الشباب!",
+    welcomeDesc: "سنوضح لك كيفية استخدام هذا التطبيق في خطوات بسيطة.",
+    dashboardStep: "هذه هي لوحة التحكم الرئيسية حيث يمكنك رؤية مواعيدك ونقاطك والوصول السريع للوظائف.",
+    calendarStep: "في التقويم يمكنك عرض جميع الأحداث والأنشطة في المركز بشكل زمني.",
+    bookingStep: "هنا يمكنك حجز الغرف والحاسوب والمشاركة في أنشطة المركز.",
+    leaderboardStep: "لوحة المتصدرين تُظهر نقاط جميع المشاركين. انضم للأنشطة لكسب النقاط!",
+    qrStep: "استخدم ماسح QR للتسجيل السريع في الأحداث وكسب النقاط تلقائياً.",
+    profileStep: "في ملفك الشخصي يمكنك رؤية معلوماتك وتقدمك وإنجازاتك.",
+    navigationStep: "استخدم هذه القائمة للتنقل بين أقسام التطبيق المختلفة.",
+    
     // Common
     confirmed: "مؤكد",
     pending: "في الانتظار",
@@ -291,6 +355,22 @@ const translations = {
     theme: "主题",
     darkTheme: "深色主题",
     lightTheme: "浅色主题",
+    
+    // Tour
+    startTour: "开始导览",
+    skipTour: "跳过导览",
+    next: "下一步",
+    prev: "上一步",
+    finish: "完成",
+    welcomeTitle: "欢迎来到青年中心！",
+    welcomeDesc: "我们将通过几个简单的步骤向您展示如何使用此应用程序。",
+    dashboardStep: "这是主控制面板，您可以在这里查看您的预约、积分并快速访问功能。",
+    calendarStep: "在日历中，您可以按时间顺序查看中心的所有活动和事件。",
+    bookingStep: "在这里您可以预订房间、电脑并参与中心活动。",
+    leaderboardStep: "排行榜显示所有参与者的积分。参加活动以赚取积分！",
+    qrStep: "使用QR扫描器快速签到活动并自动赚取积分。",
+    profileStep: "在您的个人资料中，您可以查看您的信息、进度和成就。",
+    navigationStep: "使用此菜单在应用程序的不同部分之间导航。",
     
     // Common
     confirmed: "已确认",
