@@ -45,9 +45,9 @@ const Dashboard = () => {
   const progressPercentage = ((userStats.points - (userStats.nextLevelPoints - 350)) / 350) * 100;
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto" data-tour="dashboard">
+    <div className="space-y-8 max-w-7xl mx-auto">
       {/* Welcome Section - Enhanced following Refactoring UI principles */}
-      <div className="bg-gradient-primary rounded-xl p-8 text-white shadow-elegant" data-tour="welcome">
+      <div className="bg-gradient-primary rounded-xl p-8 text-white shadow-elegant">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-3">{t("welcome")} {userStats.name}! 👋</h1>
@@ -75,7 +75,7 @@ const Dashboard = () => {
       </div>
 
       {/* Quick Actions - Enhanced with better spacing and visual hierarchy */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6" data-tour="quick-actions">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {quickActions.map((action, index) => {
           const Icon = action.icon;
           return (
@@ -143,7 +143,7 @@ const Dashboard = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-card border-0" data-tour="stats">
+        <Card className="shadow-card border-0">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-3">
               <TrendingUp className="h-6 w-6 text-success" />
@@ -174,7 +174,7 @@ const Dashboard = () => {
       {/* Secondary Content Grid */}
       <div className="grid lg:grid-cols-3 gap-8">
 
-        <Card className="shadow-card border-0" data-tour="activities">
+        <Card className="shadow-card border-0">
           <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-3">
               <Zap className="h-6 w-6 text-warning" />

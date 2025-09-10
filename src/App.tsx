@@ -13,21 +13,10 @@ import QRScanner from "./pages/QRScanner";
 import Profile from "./pages/Profile";
 import Navigation from "./components/Navigation";
 import NotFound from "./pages/NotFound";
-import OnboardingTour from "./components/OnboardingTour";
-import { useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [showTour, setShowTour] = useState(false);
-
-  useEffect(() => {
-    const hasSeenTour = localStorage.getItem('hasSeenTour');
-    if (!hasSeenTour) {
-      // Show tour after a short delay to let the app render
-      setTimeout(() => setShowTour(true), 1000);
-    }
-  }, []);
 
   return (
   <QueryClientProvider client={queryClient}>
@@ -42,22 +31,20 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
-            <OnboardingTour>
-              <div className="flex min-h-screen bg-background transition-colors duration-300">
-                <Navigation />
-                <main className="flex-1 md:ml-0 pt-16 md:pt-0 p-6 md:p-8">
-                  <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/calendar" element={<Calendar />} />
-                    <Route path="/booking" element={<Booking />} />
-                    <Route path="/leaderboard" element={<Leaderboard />} />
-                    <Route path="/qr-scanner" element={<QRScanner />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </main>
-              </div>
-            </OnboardingTour>
+            <div className="flex min-h-screen bg-background transition-colors duration-300">
+              <Navigation />
+              <main className="flex-1 md:ml-0 pt-16 md:pt-0 p-6 md:p-8">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/calendar" element={<Calendar />} />
+                  <Route path="/booking" element={<Booking />} />
+                  <Route path="/leaderboard" element={<Leaderboard />} />
+                  <Route path="/qr-scanner" element={<QRScanner />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </main>
+            </div>
           </BrowserRouter>
         </TooltipProvider>
       </LanguageProvider>
