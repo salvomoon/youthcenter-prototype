@@ -7,16 +7,19 @@ import {
   Trophy, 
   QrCode, 
   User,
-  Menu
+  Menu,
+  LogOut
 } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
   const location = useLocation();
   const { t } = useLanguage();
+  const { signOut } = useAuth();
 
   const navItems = [
     { path: "/", label: t("home"), icon: Home },
@@ -65,6 +68,14 @@ const Navigation = () => {
               <LanguageSwitcher />
               <ThemeToggle />
             </div>
+            <Button
+              variant="ghost"
+              onClick={signOut}
+              className="w-full justify-start gap-3 h-12 text-muted-foreground hover:text-foreground"
+            >
+              <LogOut className="h-5 w-5" />
+              Esci
+            </Button>
           </div>
         </div>
       </div>
@@ -78,6 +89,14 @@ const Navigation = () => {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <LanguageSwitcher />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={signOut}
+              className="gap-2"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
